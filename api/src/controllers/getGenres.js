@@ -26,7 +26,7 @@ function fetchAllGenresfromAPI(){
 
 const getGenres = async() => {
     const genresDB = await Genre.findAll({
-        attributes: ['name'],   
+        attributes: ['id', 'name'],   
     })
 
     return genresDB;
