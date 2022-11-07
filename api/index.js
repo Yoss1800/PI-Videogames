@@ -20,8 +20,13 @@
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 
+//traigo la fcn de la API
+const {fetchAllGenresfromAPI} = require('./src/controllers/getGenres');
+
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
+  //ejecuto la fcn y cargo la DB desde con generos de la API
+  fetchAllGenresfromAPI();
   server.listen(3001, () => {
     console.log('%s listening at 3001'); // eslint-disable-line no-console
   });
