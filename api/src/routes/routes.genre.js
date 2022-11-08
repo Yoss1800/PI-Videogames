@@ -11,7 +11,7 @@ router.use(morgan("dev"));
 
 router.get("/genres", async (req, res) => {
     try {
-        const allGenres = getGenres();
+        const allGenres = await getGenres();
   
         if(allGenres.length > 0) {
           res.status(200).json(allGenres);
@@ -23,3 +23,5 @@ router.get("/genres", async (req, res) => {
       res.status(400).send(err.message);
     }
 });
+
+module.exports = router;

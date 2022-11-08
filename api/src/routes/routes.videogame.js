@@ -17,11 +17,11 @@ router.get("/", async (req, res) => {
       const { name } = req.query;
   
       if(!name) {
-        const allVideogames = getAllvideogames();
+        const allVideogames = await getAllvideogames();
         res.status(200).json(allVideogames);
   
       } else {
-        const allVgByName = getVgByName(name);
+        const allVgByName = await getVgByName(name);
   
         if(allVgByName.length > 0) {
           res.status(200).json(allVgByName);
@@ -39,7 +39,7 @@ router.get("/", async (req, res) => {
 router.get('/:id', async (req, res) => {
     const { id } = req.params;
     try {
-        const vgFound = getVgById(id);
+        const vgFound = await getVgById(id);
   
         //!country, es error de usuario, no de codigo, por eso throw
         if (!vgFound) throw new Error(`${id} it's not a videogame code`);
@@ -52,30 +52,34 @@ router.get('/:id', async (req, res) => {
 
 
 router.post('/create', checkDataCreateVG, async (req, res) => { //aplico middleware
-    try {
-        const { name, image, description, released, rating, platforms, genres } = req.body;
-        const newVg = await Videogame.create({
-            name,
-            image,
-            description,
-            released,
-            rating,
-            platforms, // ojo ver como recibo la data - necesito quizas pasar a string
 
-        });
+  let { name, description, released, rating, platforms, genres} = req.body;
 
-        // genero link entre genero y video game:
-        await gameCreated[0].setGenres(genres); // relaciono ID genres al juego creado
+  try {
 
-        res.status(200).send('Videogame created successfully!');
+    //platform = platform.toString();
+    const newVgame = await Videogame.create({
+       name,
+       description,
+       released,
+       rating, 
+       platforms //ojo-- envio array!!!
+    })
 
-    } catch (error) {
-        res.status(404).send(error.message);        
+    let genresArray = [];
+    const vg_genre = await Genre.findAll({ where:{name: genres} })
+    
+    for (let i = 0; i < vg_genre.length; i++) {
+      genresArray.push(vg_genre[i].dataValues.id);
     }
-});
+    await newVgame.addGenre(genresArray);
+
+    res.status(200).send(newVgame);
+
+  } catch (error) {
+    res.status(404).send(error.message);        
+  }
+  });
 
 
-
-
-
-  module.exports = router;
+module.exports = router;
