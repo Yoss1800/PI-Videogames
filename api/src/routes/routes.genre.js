@@ -9,7 +9,7 @@ const {Op, where} = require('sequelize');
 
 router.use(morgan("dev"));
 
-router.get("/genres", async (req, res) => {
+router.get("/", async (req, res) => {
     try {
         const allGenres = await getGenres();
   
