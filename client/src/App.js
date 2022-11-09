@@ -10,10 +10,8 @@ function App() {
     <div className="App">
         <Route exact path= '/' component={LandingPage}/>
         <Route exact path= '/home' component={Home}/>
-        {/* <Route exact path= '/create-videogame' component={Videogame.Create}/> */}
+        <Route exact path= '/create-videogame' component={Videogame.Create}/>
         <Route path='/videogames/:id' component={Detail}/>
-        
-      
     </div>
   );
 }

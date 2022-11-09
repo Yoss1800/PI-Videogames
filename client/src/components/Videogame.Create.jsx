@@ -1,20 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getActivities, postActivity } from '../actions';
+import { getGenres, postVG } from '../redux/actions';
 import { Link, useHistory } from 'react-router-dom';
 
 export default function ActivityCreate() {
     const dispatch = useDispatch();
     //history, metodo del router para  redirigir a donde quiera
     const history = useHistory;
-    const allActivities = useSelector((state) => state.allActivities);
+    const videogames = useSelector((state) => state.videogames);
+
+    const platformsArray = [
+		'PC',
+		'iOS',
+		'Android',
+		'macOS',
+		'PlayStation 4',
+		'PlayStation 5',
+		'Xbox',
+		'PS Vita',
+	];
 
     const [input, setInput] = useState({
-        countryId: '',
         name: '',
-        difficulty: '',
-        duration: '',
-        season: ''
+        rating: 0,
+        platforms: [],
+        genres: [],
+        released: '',
+        description: ''
     })
 
     //vamos guardando el input del usuario en el estado
@@ -30,7 +42,7 @@ export default function ActivityCreate() {
         if (e.target.cheked){ //esta chequeado el target? - seteame el input asi:
             setInput({
             ...input,
-            season: e.target.value
+            platforms: platforms.push(e.target.value)
             })
         }    
     }
@@ -38,20 +50,21 @@ export default function ActivityCreate() {
     function handleSelect(e) {
         setInput({
             ...input,
-            duration: e.target.value
+            rating: e.target.value*1
         })    
     }
 
     function handleSubmit(e) {
         e.preventDefault();
-        dispatch(postActivity(input));
-        alert('Activity Created!');
+        dispatch(postVG(input));
+        alert('Videogame Added!');
         setInput({ //le reseteo el imput
-            countryId: '',
             name: '',
-            difficulty: '',
-            duration: '',
-            season: ''
+            rating: 0,
+            platforms: [],
+            genres: [],
+            released: '',
+            description: ''
         })
         history.push('/home'); //cuando termina envio al home
     }
@@ -62,86 +75,62 @@ export default function ActivityCreate() {
     }, []);
 
     return(
-         <div>
+        <div>
             <Link to= '/hone'><button>Home</button></Link>
-            <h1>Create Activity</h1>
+            <h1>Add Videogame</h1>
+
             <form onSubmit={(e) => handleSubmit(e)}>
-                <div>
+
+                <div className='name'>
                     <label>Name:</label>
                     <input
                     type= 'text'
                     value= {input.name}
                     name= 'name'
-                    onChange={handleInputChange} //se pueden poner asi o ejecutandolos
-                    />
-                </div>
-                <div>
-                    <label>Difficulty:</label>
-                    <input
-                    type= 'text'
-                    value= {input.difficulty}
-                    name= 'difficulty'
-                    onChange={handleInputChange}
-                    />
-                </div>
-                <div>
-                    <label>Country ID:</label>
-                    <input
-                    type= 'text'
-                    value= {input.countryId}
-                    name= 'countryId'
-                    onChange={handleInputChange}
-                    />
-                </div>
-                <div>
-                <h3>Duration:</h3>
-                <select onChange={e => handleSelect(e)}>
-                    <option value= '1'>1 hr</option>
-                    <option value= '2'>2 hrs</option>
-                    <option value= '3'>3 hrs</option>
-                    <option value= '4'>4 hrs</option>
-                    <option value= '5'>5 hrs</option>
-                </select>
-                </div>
-                <div>
-                    <h3>Season:</h3>
-                    <label>Summer</label>
-                    <input
-                    type= 'checkbox'
-                    value= 'summer'
-                    name= 'summer'
-                    onChange={(e) => handleCheck(e)}
-                    />
-                    <label>Autumn</label>
-                     <input
-                    type= 'checkbox'
-                    value= 'autumn'
-                    name= 'autumn'
-                    onChange={(e) => handleCheck(e)}
-                    />
-                    <label>Winter</label>
-                     <input
-                    type= 'checkbox'
-                    value= 'winter'
-                    name= 'winter'
-                    onChange={(e) => handleCheck(e)}
-                    />
-                    <label>Spring</label>
-                     <input
-                    type= 'checkbox'
-                    value= 'spring'
-                    name= 'spring'
-                    onChange={(e) => handleCheck(e)}
+                    onChange={handleInputChange} //se pueden poner asi o ejecutandolos con ()
                     />
                 </div>
 
-                {/* una lista que agarra cada estado input.activity y renderiza cada cosa que marque en select */}
-            {/*     <ul><li>{input.activity.map(e => E + ' ,')}</li></ul> */}
+                <div className='rating'>
+                <h3>Rating:</h3>
+                <select onChange={e => handleSelect(e)}>
+                    <option value= '1'>1</option>
+                    <option value= '2'>2</option>
+                    <option value= '3'>3</option>
+                    <option value= '4'>4</option>
+                    <option value= '5'>5</option>
+                </select>
+                </div>
+
+                <div className='genre'>
+                <option value= 'allGenre'>All Genres</option>
+                    {allGenresArray.sort().map(g => {
+                    return <option value={g}>{g}</option>})} 
+                </div>
+
+                <div className='platform'>
+							<label>-Platforms-</label>
+							<div>
+								{platformsArray.map((p) => (
+									<div key={p}>
+                                        <label>{p}</label>
+                                        <input
+                                        type= 'checkbox'
+                                        value= {p}
+                                        name= {p}
+                                        onChange={(e) => handleCheck(e)}
+                                        />
+
+									</div>
+								))}
+							</div>
+				</div>        
 
                 <button type='submit'>Create</button>
 
             </form>
-         </div>
+
+        </div>
     )
 
 }

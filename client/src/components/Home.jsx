@@ -74,8 +74,8 @@ export default function Home(){
     //renderizamos con el return
     return (
         <div>
-        {/*     <Link to= '/create-videogame'>New Videogame</Link>
-            <Link to= '/videogames'>All Videogames</Link> */}
+            <Link to= '/create-videogame'>New Videogame</Link>
+            <Link to= '/home'>All Videogames</Link>
             <h1>Esto es Home</h1>
         
 
