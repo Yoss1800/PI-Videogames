@@ -66,6 +66,11 @@ const rootReducer = (state= initialState, action)=>{
                     return 1;
                 })
 
+            return {
+                ...state,
+                countries: sortdCardsName
+            }
+
         case SORT_BY_RATING:
             let sortedCardsGenre = action.payload === 'rating-+' ?
                 //sort compara y pone der o izq del arreglo, dependiendo cual es mayor
@@ -81,12 +86,17 @@ const rootReducer = (state= initialState, action)=>{
                     return 1;
                 })
 
+            return {
+                    ...state,
+                    countries: sortedCardsGenre
+                }   
+
         case FILTER_BY_GENRE:
             const allVideogames = state.allVideogames;
             //si la opc es allgenr, 
             //si mi payload es todo, me devolv es todo, y si no filtralo por al payload que te llega (action.payload)
             //hago dispatch en componente home
-            const genreFiltered = action.payload === 'allGenre' ? allVideogames : allVideogames.filter(e => e.genre === action.payload);
+            const genreFiltered = action.payload === 'allGenre' ? allVideogames : allVideogames.filter(e => e.genres.includes(action.payload));
             return{
                 ...state,
                 videogames: genreFiltered

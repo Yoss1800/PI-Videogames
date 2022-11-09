@@ -2,15 +2,15 @@ import axios from 'axios'
 
 //redux-thunk: sirve para permitirnos esta llamada asincrona a la DB
 
-const GET_ALL_VG = "GET_ALL_VG";
-const GET_DETAIL = "GET_DETAIL";
-const GET_VG_NAME = "GET_VG_NAME";
-const GET_GENRES = "GET_GENRES";
-const POST_VG = "POST_VG";
-const SORT_BY_NAME = "SORT_BY_NAME";
-const SORT_BY_RATING = "SORT_BY_RATING";
-const FILTER_BY_GENRE = "FILTER_BY_GENRE";
-const CLEAN_DETAIL = "CLEAN_DETAIL";
+export const GET_ALL_VG = "GET_ALL_VG";
+export const GET_DETAIL = "GET_DETAIL";
+export const GET_VG_NAME = "GET_VG_NAME";
+export const GET_GENRES = "GET_GENRES";
+export const POST_VG = "POST_VG";
+export const SORT_BY_NAME = "SORT_BY_NAME";
+export const SORT_BY_RATING = "SORT_BY_RATING";
+export const FILTER_BY_GENRE = "FILTER_BY_GENRE";
+export const CLEAN_DETAIL = "CLEAN_DETAIL";
 
 
 //traigo los VG de la DB - CONECTO CON BACK - Return al dispatch?

@@ -1,10 +1,10 @@
 import React from "react";
 
-export default function PageBreaker ({countriesPerPage, allCountries, pageBreaker}){
+export default function PageBreaker ({vgPerPage, allVideogames, pageBreaker}){
     const pageNumbers = [];
 
     //creo un arreglo con los numeros de pags que quiero, todos los countrs/cuantops port pag (redondeado)
-    for (let i = 0; i < Math.ceil(allCountries/countriesPerPage); i++) {
+    for (let i = 0; i < Math.ceil(allVideogames/vgPerPage); i++) {
         pageNumbers.push(i+1); //i+1, si no, la primer pag es 0
     }
 

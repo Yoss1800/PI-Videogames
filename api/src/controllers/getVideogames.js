@@ -20,7 +20,7 @@ const getAllvideogames = async()=>{
             return {
                 id: vg.id,
                 name: vg.name,
-                image: vg.image,
+                image: vg.background_image,
                 description: vg.description,
                 released: vg.released,
                 rating: vg.rating,
@@ -39,7 +39,7 @@ const getAllvideogames = async()=>{
 
 
     const vgFromDB = await Videogame.findAll({
-        attributes: ['id', 'name', 'image', 'description', 'released','rating', 'platforms'],
+        attributes: ['id', 'name', 'description', 'released','rating', 'platforms'],
         include: { model: Genre }
      
     })
@@ -59,7 +59,7 @@ const getVgByName = async(name)=> { // ***ojo-- lower / upper case????
         return {
             id: vg.id,
             name: vg.name,
-            image: vg.image,
+            image: vg.background_image,
             description: vg.description,
             released: vg.released,
             rating: vg.rating,
@@ -95,7 +95,7 @@ const getVgById = async(id)=> {
         let vgApi =  {
                 id: vg.id,
                 name: vg.name,
-                image: vg.image,
+                image: vg.background_image,
                 description: vg.description,
                 released: vg.released,
                 rating: vg.rating,

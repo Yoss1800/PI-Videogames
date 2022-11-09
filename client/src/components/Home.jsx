@@ -15,13 +15,17 @@ export default function Home(){
     const allVideogames = useSelector((state) => state.videogames);
     const allGenres = useSelector((state) => state.genres);
 
+    const allGenresArray = allGenres.map(g => g.name);
+    //console.log(allGenresArray);
+    //console.log(allVideogames)
+
        //DEFINIMNOS VARIOS ESTADOS LOCALES:
     //-A estado con la pag actual / B- estado que me setee la pagf actual
     const [currentPage, setCurrentPage] = useState(1); //guardame en estado local pag actual y una constante que me setee la pag actual
-    const [vgPerPage, setVideogamesPerPage] = useState(10); //guardame cuantos paises quiero por pagina
+    const [vgPerPage, setVideogamesPerPage] = useState(16); //guardame cuantos paises quiero por pagina
     const indexOfLastVG = currentPage * vgPerPage; // nro de pag * cant de card por pag me da el ultimo card esto seria igual a 10
-    const indexOfFirstVideogame = indexOfLastVG - vgPerPage; //0
-    const currentVideogames =  allVideogames.slice(indexOfFirstVideogame, indexOfLastVG);   //Obtengo array con los cards entre ambos index
+    const indexOfFirstVG = indexOfLastVG - vgPerPage; //0
+    const currentVG =  allVideogames.slice(indexOfFirstVG, indexOfLastVG);   //Obtengo array con los cards entre ambos index
     const [sorted, setSorted] = useState('');//genero estado vacio.. en la fcn de ordenar, renderiza la primera pag
 
     const pageBreaker = (pageNumber) => {
@@ -47,17 +51,11 @@ export default function Home(){
         dispatch(getAllVG());
     };
 
-    //creamos funcion para seleccionar el filtro de continent.. el e.target.,value, toma el valor del continente seleccionado
+    //creamos funcion para seleccionar el filtro de genero.. el e.target.,value, toma el valor del continente seleccionado
     function handlerFilterGenre(e){
         dispatch(filterByGenre(e.target.value));
     };
-  
-    function handlerSortCards(e){
-        e.preventDefault();
-        dispatch(sortByName(e.target.value));
-        setCurrentPage(1);
-        setSorted(`Sorted ${e.target.value}`); //renderiza la primera pag, modificando el estadio previamente declarado en la seccion de variables
-    };
+
 
     function handlerSortCards(e){
         e.preventDefault();
@@ -73,13 +71,11 @@ export default function Home(){
         }
     };
 
-
- 
     //renderizamos con el return
     return (
         <div>
-            <Link to= '/create-videogame'>New Videogame</Link>
-            <Link to= '/videogames'>All Videogames</Link>
+        {/*     <Link to= '/create-videogame'>New Videogame</Link>
+            <Link to= '/videogames'>All Videogames</Link> */}
             <h1>Esto es Home</h1>
         
 
@@ -90,10 +86,10 @@ export default function Home(){
 
             {/* los values son los correspòndientes de la api o la DB */}
             <div>
-                <select onChange={e => handlerFilterGenre(e)}> {/* cuando se selecciona, toma valor a filtrar */}
-                    {allGenres.sort().map(e => {   /* ordeno, mapeo y genero opcion con genero */
-                         return <option value={e}>{e}</option>
-                    })} 
+                <select onChange={e => handlerFilterGenre(e)}> {/* cuando se selecciona, toma valor a filtrar */}                   
+                <option value= 'allGenre'>All Genres</option>
+                    {allGenresArray.sort().map(g => {
+                    return <option value={g}>{g}</option>})} 
                 </select>
 
                 <select onChange={e => handlerSortCards(e)}>
@@ -114,7 +110,7 @@ export default function Home(){
                 {/* renderizo la card pais con el componente card: (paso props que quiero -chequear del estado global) 
                 allcountries para todos los countries
                 currentcountires apra los actuales de la pag*/}
-                {currentVideogames?.map(v => {
+                {currentVG?.map(v => {
                     return (
                         <div>
                         <Link to={`/videogames/${v.id}`}>   
