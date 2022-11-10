@@ -38,12 +38,23 @@ const getAllvideogames = async()=>{
     }
 
 
-    const vgFromDB = await Videogame.findAll({
+    let vgFromDBTemp = await Videogame.findAll({
         attributes: ['id', 'name', 'description', 'released','rating', 'platforms'],
         include: { model: Genre }
      
     })
-    
+    let vgFromDB = vgFromDBTemp.map(vg => {
+        return {
+            id: vg.id,
+            name: vg.name,
+            //image: vg.background_image,
+            description: vg.description,
+            released: vg.released,
+            rating: vg.rating,
+            platforms: vg.platforms,
+            genres: vg.genres.map(g => g.name) //objeto y extraigo array
+        }
+    })
 
     return [...vgAllApi, ...vgFromDB];
 }
@@ -68,7 +79,7 @@ const getVgByName = async(name)=> { // ***ojo-- lower / upper case????
         }
     });
 
-    const VgDB = await Videogame.findAll({
+    const vgDBTemp = await Videogame.findAll({
         where:{
             name:{
               [Op.iLike]: `%${name}%`
@@ -77,7 +88,21 @@ const getVgByName = async(name)=> { // ***ojo-- lower / upper case????
           include: Genre,
     });
 
-    return [...vgApi, ...VgDB];
+    let vgDB = vgDBTemp.map(vg => {
+        return {
+            id: vg.id,
+            name: vg.name,
+            //image: vg.background_image,
+            description: vg.description,
+            released: vg.released,
+            rating: vg.rating,
+            platforms: vg.platforms,
+            genres: vg.genres.map(g => g.name) //objeto y extraigo array
+        }
+    })
+
+
+    return [...vgApi, ...vgDB];
 }
 
 
@@ -108,13 +133,28 @@ const getVgById = async(id)=> {
         return vgApi;
 
     } else {
-        const VgDB = await Videogame.findByPk(id, {
+        const vgDBTempObject = await Videogame.findByPk(id, {
             include: Genre,
-        })
-        return VgDB;
-    }
-         
+        });
+
+        //const vgDBTempArray = [vgDBTempObject];
+
+        var vgDB = {
+                id: vgDBTempObject.id,
+                name: vgDBTempObject.name,
+                //image: vgDBTempObject.background_image,
+                description: vgDBTempObject.description,
+                released: vgDBTempObject.released,
+                rating: vgDBTempObject.rating,
+                platforms: vgDBTempObject.platforms,
+                //genres: vTemp.genres.map(g => g.name) //objeto y extraigo array
+                genres: vgDBTempObject.genres.map(g => g.name)
+        }
+        
+        return vgDB;
+    }     
 }
+
 
 module.exports = {
     getAllvideogames,

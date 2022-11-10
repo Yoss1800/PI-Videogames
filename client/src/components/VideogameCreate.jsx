@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllVG, getGenres, postVG } from '../redux/actions';
+import { getGenres, postVG } from '../redux/actions';
 import { Link, useHistory } from 'react-router-dom';
 
 export default function VGCreate() {
     const dispatch = useDispatch();
     //history, metodo del router para  redirigir a donde quiera
-    //const history = useHistory;
-    const videogames = useSelector((state) => state.videogames);
+    //const history = useHistory();
 
     const allGenres = useSelector((state) => state.genres);
-    const allGenresArray = allGenres.map(g => g.name);
-    let genresTemp = [];
-
-    let platformsTemp = [];
+    const allGenresArray = allGenres.map(g => g.name); //los saco del objeto antes para ordenarlos AZ despues
+ 
     const platformsArray = [
 		'PC',
 		'iOS',
@@ -55,6 +52,7 @@ export default function VGCreate() {
             ...input,
             [e.target.name] : e.target.value
         })
+        console.log(input)
     }
 
     //chequear esta--- de`prt
@@ -73,24 +71,23 @@ export default function VGCreate() {
     
 
     function handleCheckGenre(e) {      
-        if (e.target.cheked){ //esta chequeado el target? - seteame el input asi:
-            genresTemp.push(e.target.value)
+        if (e.target.checked){
             setInput({
             ...input,
-            genres: genresTemp.sort()
+            genres: [...input.genres, e.target.value]
             })
-        }  
+        }
+        console.log(input)
     }
 
     function handleCheckPlatform(e) {      
-        if (e.target.cheked){ //esta chequeado el target? - seteame el input asi:
-            platformsTemp.push(e.target.value)
-            console.log(platformsTemp)
+        if (e.target.checked){
             setInput({
             ...input,
             platforms: [...input.platforms, e.target.value]
             })
-        }  
+        }
+        console.log(input)
     }
 
     function handleSelect(e) {
@@ -98,7 +95,8 @@ export default function VGCreate() {
         setInput({
             ...input,
             rating: e.target.value*1
-        })    
+        })
+        console.log(input) 
     }
 
     //revisar fcn  fprt
@@ -119,7 +117,7 @@ export default function VGCreate() {
       }
 
     function handleSubmit(e) {
-        e.preventDefault();
+        e.preventDefault(); //par que no se refresqie navegador automaticamente
         dispatch(postVG(input));
         alert('Videogame Added!');
         setInput({ //le reseteo el imput
@@ -130,19 +128,13 @@ export default function VGCreate() {
             released: '',
             description: ''
         })
-        //genresTemp = [];
-       // platformsTemp = [];
         //history.push('/home'); //cuando termina envio al home
     }
-
-    //renderizo las actividades
-    /* useEffect(() => {
-        dispatch(getAllVG());
-    }, []); */
 
     useEffect (()=>{
         dispatch(getGenres());
     },[dispatch])
+
 
     return(
         <div>
@@ -183,14 +175,6 @@ export default function VGCreate() {
                         <option value= '5'>5</option>
                     </select>
                 </div>
-
-                
-               {/*  <select onChange={e => handleSelectGenre(e)}> 
-                <option value= 'allGenre'>All Genres</option>
-                    {allGenresArray.sort().map(g => {
-                    return <option value={g}>{g}</option>})} 
-                </select> */}
-
 
                 <div className='divInputLabel'>
 					<label>-Genres-</label>
