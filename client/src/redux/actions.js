@@ -62,6 +62,7 @@ export function postVG(payload) {
     return async (dispatch) => {
       const res = await axios.post("http://localhost:3001/videogames/create", payload);
       dispatch({ type: POST_VG, payload: res.data });
+      console.log(res.data)
     };
 }
 

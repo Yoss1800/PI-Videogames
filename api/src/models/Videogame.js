@@ -17,7 +17,7 @@ module.exports = (sequelize) => {
     },
     description: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: false, //tiene que ir false!! -para probar true
     },
     released: {
       type: DataTypes.DATEONLY,
