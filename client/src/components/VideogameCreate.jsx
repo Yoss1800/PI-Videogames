@@ -6,7 +6,7 @@ import { Link, useHistory } from 'react-router-dom';
 export default function VGCreate() {
     const dispatch = useDispatch();
     //history, metodo del router para  redirigir a donde quiera
-    //const history = useHistory();
+    const history = useHistory();
 
     const allGenres = useSelector((state) => state.genres);
     const allGenresArray = allGenres.map(g => g.name); //los saco del objeto antes para ordenarlos AZ despues
@@ -33,6 +33,7 @@ export default function VGCreate() {
         platforms: '',
         genres: '',
         released: '',
+        image: '',
         description: ''
       });
 
@@ -42,6 +43,7 @@ export default function VGCreate() {
         platforms: [],
         genres: [],
         released: formatDate(),
+        image: '',
         description: ''
     })
 
@@ -126,9 +128,10 @@ export default function VGCreate() {
             platforms: [],
             genres: [],
             released: '',
+            image: '',
             description: ''
         })
-        //history.push('/home'); //cuando termina envio al home
+        history.push('/home'); //cuando termina envio al home
     }
 
     useEffect (()=>{
@@ -212,6 +215,16 @@ export default function VGCreate() {
 							))}
 						</div>		
 				</div>
+
+                <div className='divInputLabel'>
+                    <label>Image:</label>
+                    <input
+                    type= 'text'
+                    value= {input.image}
+                    name= 'image'
+                    onChange={handleInputChange} //se pueden poner asi o ejecutandolos con ()
+                    />
+                </div>
 
                 <div className='divInputLabel'>
                     <label>Description: </label>

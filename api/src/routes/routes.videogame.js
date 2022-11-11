@@ -53,7 +53,7 @@ router.get('/:id', async (req, res) => {
 
 router.post('/create', checkDataCreateVG, async (req, res) => { //aplico middleware
 
-  let { name, description, released, rating, platforms, genres} = req.body;
+  let { name, description, released, rating, platforms, genres, image} = req.body;
 
   try {
 
@@ -62,7 +62,8 @@ router.post('/create', checkDataCreateVG, async (req, res) => { //aplico middlew
        name,
        description,
        released,
-       rating, 
+       rating,
+       image, 
        platforms //ojo-- envio array!!!
     })
 

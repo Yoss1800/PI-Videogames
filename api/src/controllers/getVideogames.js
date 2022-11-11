@@ -39,7 +39,7 @@ const getAllvideogames = async()=>{
 
 
     let vgFromDBTemp = await Videogame.findAll({
-        attributes: ['id', 'name', 'description', 'released','rating', 'platforms'],
+        attributes: ['id', 'name', 'description', 'released','rating', 'platforms', 'image'],
         include: { model: Genre }
      
     })
@@ -47,7 +47,7 @@ const getAllvideogames = async()=>{
         return {
             id: vg.id,
             name: vg.name,
-            //image: vg.background_image,
+            image: vg.image,
             description: vg.description,
             released: vg.released,
             rating: vg.rating,
@@ -92,7 +92,7 @@ const getVgByName = async(name)=> { // ***ojo-- lower / upper case????
         return {
             id: vg.id,
             name: vg.name,
-            //image: vg.background_image,
+            image: vg.image,
             description: vg.description,
             released: vg.released,
             rating: vg.rating,
@@ -142,12 +142,11 @@ const getVgById = async(id)=> {
         var vgDB = {
                 id: vgDBTempObject.id,
                 name: vgDBTempObject.name,
-                //image: vgDBTempObject.background_image,
+                image: vgDBTempObject.image,
                 description: vgDBTempObject.description,
                 released: vgDBTempObject.released,
                 rating: vgDBTempObject.rating,
                 platforms: vgDBTempObject.platforms,
-                //genres: vTemp.genres.map(g => g.name) //objeto y extraigo array
                 genres: vgDBTempObject.genres.map(g => g.name)
         }
         
