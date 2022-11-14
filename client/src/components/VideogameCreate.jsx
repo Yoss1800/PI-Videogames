@@ -2,6 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGenres, postVG } from '../redux/actions';
 import { Link, useHistory } from 'react-router-dom';
+//const { validateCreateVG } =require('../middlewares/checkData')
+/* const {
+    handleInputChange,
+    handleReleased,
+    handleCheckGenre,
+    handleCheckPlatform,
+    handleSelect,
+    handleDescription,
+    handleSubmit
+  } = require('../handlers/createVgHandlers'); */
+
+
 
 export default function VGCreate() {
     const dispatch = useDispatch();
@@ -27,15 +39,10 @@ export default function VGCreate() {
         return date.toISOString().slice(0, 10);
     }
 
-    const [error, setError] = useState({
-        name: '',
-        rating: '',
-        platforms: '',
-        genres: '',
-        released: '',
-        image: '',
-        description: ''
-      });
+    //estado local para manejo de errores
+    //guardo en cada uno de los elementos del obj el error correspondiente (enviado por setError)
+    //EJECUTO LA FCN VALIDADORA CON LA PRIMERA CARGA DEL COMPONENTE, para validacion continua
+    const [errors, setError] = useState({});
 
     const [input, setInput] = useState({
         name: '',
@@ -47,30 +54,29 @@ export default function VGCreate() {
         description: ''
     })
 
-    //vamos guardando el input del usuario en el estado
+     //vamos guardando el input del usuario en el estado
     // cada vez que se ejecute esta fcn, al estado input, agrego el target value de lo que este modificando
     function handleInputChange(e) {
         setInput({
             ...input,
             [e.target.name] : e.target.value
-        })
+        });
+        setError(validateCreateVG({ //guardo eñ el objeto de error el si hay error (estado error)
+            ...input,
+            [e.target.name] : e.target.value
+        }));
         console.log(input)
     }
 
     //chequear esta--- de`prt
     function handleReleased (e) {//que los dias no sean mayor a 30, meses mayores a 12 y año no sea mayor a 2022
         e.preventDefault()
-        if(e.target.value.slice(0, 4)>2024) {
-          setError({...error, released:'released date cannot be after 2024'})
-        }
-        if(e.target.value.slice(0, 4)<1970) {
-          setError({...error, released:'released date cannot be before 1970'})
-        }
-          if(e.target.value.slice(0, 4) > 1970 && e.target.value.slice(0, 4) < 2024 ){
-            setError({...error, released:''})}
-        setInput({ ...input, released: e.target.value })
+        setInput({
+            ...input, 
+            [e.target.name]: e.target.value })
     }
     
+      
 
     function handleCheckGenre(e) {      
         if (e.target.checked){
@@ -78,9 +84,19 @@ export default function VGCreate() {
             ...input,
             genres: [...input.genres, e.target.value]
             })
-        }
+        }       // REVISAR SI TENGO QUE HACER UN UNCHEKK!!!!!
+        /* if (e.target.checked){
+            setInput({
+            ...input,
+            genres: [...input.genres, e.target.value]
+            })
+        } */
+        
         console.log(input)
     }
+
+
+
 
     function handleCheckPlatform(e) {      
         if (e.target.checked){
@@ -89,54 +105,119 @@ export default function VGCreate() {
             platforms: [...input.platforms, e.target.value]
             })
         }
+        setError(validateCreateVG({
+            ...input,
+            [e.target.name] : e.target.value
+        }));
         console.log(input)
     }
 
-    function handleSelect(e) {
-        if(e === 0) setError({...error, rating:'Must select value'})
+    function handleSelectRating(e) {
         setInput({
             ...input,
             rating: e.target.value*1
         })
+        setError(validateCreateVG({ //guardo eñ el objeto de error el si hay error (estado error)
+            ...input,
+            [e.target.name] : e.target.value
+        }));
+
+    
         console.log(input) 
     }
 
     //revisar fcn  fprt
-    function handleDescription(e){ //me faltaria poner que si el .length es mayor a 200 que tire un error y lo de los caracteres
+/*     function handleDescription(e){ //me faltaria poner que si el .length es mayor a 200 que tire un error y lo de los caracteres
         if(e.target.value === '' || e.target.value.length === 0){
-          setError({...error, description:'You must enter a description'})
+          setError({...errors, description:'You must enter a description'})
         }
         else if(e.target.value.length >= 1){
           if(e.target.value.length > 150){
-            setError({...error, description:'The description should not have more than 150 characters'})
+            setError({...errors, description:'The description should not have more than 150 characters'})
           }
-          setError({...error, description:''})
+          setError({...errors, description:''})
         }
         setInput({
           ...input,
           description: e.target.value
         })
-      }
+      } */
 
     function handleSubmit(e) {
-        e.preventDefault(); //par que no se refresqie navegador automaticamente
+        e.preventDefault(); //para que no se refresque navegador automaticamente
         dispatch(postVG(input));
-        alert('Videogame Added!');
-        setInput({ //le reseteo el imput
-            name: '',
-            rating: 0,
-            platforms: [],
-            genres: [],
-            released: '',
-            image: '',
-            description: ''
-        })
-        history.push('/home'); //cuando termina envio al home
-    }
+            alert('Videogame Added!');
+            setInput({ //le reseteo el imput
+                name: '',
+                rating: 0,
+                platforms: [],
+                genres: [],
+                released: '',
+                image: '',
+                description: ''
+            })
+            history.push('/home'); //cuando termina envio al home 
+        }
+
+/*     function handleSubmit(e) {
+        e.preventDefault(); //par que no se refresqie navegador automaticamente
+        if(Object.keys(error).length) { //devuelve un array con contenido del objetom si el key esta vacio no devuelve nada y el length es 0
+            console.log(input)
+            alert('Chack data entered')
+        }else{
+            dispatch(postVG(input));
+            alert('Videogame Added!');
+            setInput({ //le reseteo el imput
+                name: '',
+                rating: 0,
+                platforms: [],
+                genres: [],
+                released: '',
+                image: '',
+                description: ''
+            })
+            history.push('/home'); //cuando termina envio al home    
+        }        
+    } */
 
     useEffect (()=>{
         dispatch(getGenres());
     },[dispatch])
+
+    /* useEffect (()=>{
+        setError(checkDataCreateVG(input));
+    },[input]) */
+
+
+    const validateCreateVG = (input) => {
+        let errors =  {};
+        if (!input.name){
+          errors.name = 'Game name is requiered';
+        /* } else if(!/\S+@\S+\.\S+/.test(input.name)){
+          errors.name="Name is invalid"; */
+        } else if (input.name.length < 4) {
+            errors.name = 'Game Name must have at least 4 characters';
+        }
+        if (!input.description) {
+            errors.description = 'Description is required';
+            } else if (input.description.length < 8) {
+                errors.description = 'Description must have at least 8 characters'
+        }
+        if (input.rating === 0) {
+            errors.rating = 'Rating is required';
+        }
+        if (input.platforms.length < 1) {
+            errors.rating = 'Must choose at least one platform';
+        }
+        if(input.released.slice(0, 4)>2024) {
+            setError({...errors.released = 'Date cannot be after 2024'})
+            }else if(input.released.slice(0, 4)<1970) {
+                setError({...errors.released = 'Date cannot be before 1970'})
+        }
+   
+        return errors;
+      
+    };
 
 
     return(
@@ -154,6 +235,8 @@ export default function VGCreate() {
                     name= 'name'
                     onChange={handleInputChange} //se pueden poner asi o ejecutandolos con ()
                     />
+                    {/* si hay error, renderizo un p con el error */}
+                    {errors.name && (<p className='error'>{errors.name}</p>)}
                 </div>
 
                 <div className='divInputLabel'>
@@ -165,11 +248,12 @@ export default function VGCreate() {
                     value={input.released}
                     onChange={(e) => handleReleased(e)}
                     />
+                    {errors.released && (<p className='error'>{errors.released}</p>)}
                 </div>
 
                 <div className='divInputLabel'>
                     <h3>Rating:</h3>
-                    <select onChange={e => handleSelect(e)}>
+                    <select onChange={e => handleSelectRating(e)}>
                         <option value= '0'>Select</option>
                         <option value= '1'>1</option>
                         <option value= '2'>2</option>
@@ -177,6 +261,7 @@ export default function VGCreate() {
                         <option value= '4'>4</option>
                         <option value= '5'>5</option>
                     </select>
+                    {errors.rating && (<p className='error'>{errors.rating}</p>)}
                 </div>
 
                 <div className='divInputLabel'>
@@ -210,9 +295,9 @@ export default function VGCreate() {
                                     name= {p}
                                     onChange={(e) => handleCheckPlatform(e)}
                                     />
-								</div>
-                                    
+								</div>   
 							))}
+                            {errors.platforms && (<p className='error'>{errors.platforms}</p>)}
 						</div>		
 				</div>
 
@@ -232,11 +317,20 @@ export default function VGCreate() {
                     name='description'
                     placeholder='Description...'
                     value={input.description}
-                    onChange={(e) => handleDescription(e)}
-                    />            
+                    onChange={(e) => handleInputChange(e)}
+                    />
+                    {errors.description && (<p className='error'>{errors.description}</p>)}         
                 </div>       
 
-                <button type='submit'>Create</button>
+                <button type='submit' disabled={
+                    !input.name || 
+                    errors.name ||
+                    input.rating === 0 || 
+                    input.platforms.length < 1 ||
+                    !input.description ||
+                    errors.description
+                    }>Create</button>
+                {/* DESHABOLITAR BOTON SI HAY ERRORES!!!!! */}
 
             </form>
 
