@@ -24,7 +24,7 @@ export default function Detail(props) {
                 //detail es un arreglo, por eso tengo que poner el [0] para acceder al objeto con el detalle
                 <div>
                     <h1>{detail.name}</h1>
-                    <img src={detail.image} alt='image not found' width='250px' heigth='300px'/>
+                    <img src={detail.image} /* alt='image not found' */ width='250px' heigth='300px'/>
                     <h3>Genres: {detail.genres}</h3>
                     <h3>Released: {detail.released}</h3>
                     <h3>Rating: {detail.rating}</h3>

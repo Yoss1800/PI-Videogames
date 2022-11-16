@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllVG, getGenres, sortByName, sortByRating, filterByGenre } from '../redux/actions';
-import { Link } from 'react-router-dom';
+import { Link as NavLink } from 'react-router-dom';
 import Card from './Card';
 import PageBreaker from './PageBraker';
 import SearchBar from './SearchBar';
+import Nav from './Nav';
+import styles from './Home.module.css'
 
 
 export default function Home(){
@@ -46,10 +48,10 @@ export default function Home(){
         dispatch(getGenres());
     },[dispatch])
 
-    const handleClick = (e) => {
+    /* const handleClick = (e) => {
         e.preventDefault();
         dispatch(getAllVG());
-    };
+    }; */
 
     //creamos funcion para seleccionar el filtro de genero.. el e.target.,value, toma el valor del continente seleccionado
     function handlerFilterGenre(e){
@@ -73,19 +75,15 @@ export default function Home(){
 
     //renderizamos con el return
     return (
-        <div>
-            <Link to= '/create-videogame'>New Videogame</Link>
-            <Link to= '/home'>All Videogames</Link>
-            <h1>Esto es Home</h1>
-        
-
+        <div className={styles.searchBar}>
+            <SearchBar/>
 
             {/* aca hacemos los filtros:
             -el value dentro de la option, me permite acceder y preguntar: de acuerdo al value tomar una desicion / accion 
             si son mas opciones, podemos usar un map}
 
             {/* los values son los correspòndientes de la api o la DB */}
-            <div>
+            
                 <select onChange={e => handlerFilterGenre(e)}> {/* cuando se selecciona, toma valor a filtrar */}                   
                 <option value= 'allGenre'>All Genres</option>
                     {allGenresArray.sort().map(g => {
@@ -98,31 +96,41 @@ export default function Home(){
                     <option value= 'rating-+'>Rating - +</option>
                     <option value= 'rating+-'>Rating + -</option>
                 </select>
+            
+        <div className={styles.cards}>
+            {/* <NavLink to= '/create-videogame'>New Videogame</NavLink>
+            <NavLink to= '/home'>All Videogames</NavLink> */}
+        
+        
 
-                <PageBreaker
-                    vgPerPage = {vgPerPage}
-                    allVideogames = {allVideogames.length}
-                    pageBreaker = {pageBreaker}
-                />
+            
 
-                <SearchBar/>
-
+        
                 {/* renderizo la card pais con el componente card: (paso props que quiero -chequear del estado global) 
                 allcountries para todos los countries
                 currentcountires apra los actuales de la pag*/}
                 {currentVG?.map(v => {
                     return (
                         <div>
-                        <Link to={`/videogames/${v.id}`}>   
+                        <NavLink to={`/videogames/${v.id}`}>   
                         <Card name={v.name} genres={v.genres} image={v.image}/>
-                        </Link>
+                        </NavLink>
                         </div>
                     )      
                 })
                 }
 
 
-            </div>
+        </div>
+
+        <div className={styles.pageBreaker}>
+        <PageBreaker
+                    vgPerPage = {vgPerPage}
+                    allVideogames = {allVideogames.length}
+                    pageBreaker = {pageBreaker}
+                />
+        </div>
+
         </div>
     )   
 

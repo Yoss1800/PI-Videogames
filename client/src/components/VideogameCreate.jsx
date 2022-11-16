@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGenres, postVG } from '../redux/actions';
 import { Link, useHistory } from 'react-router-dom';
+import styles from './VideogameCreate.module.css';
 //const { validateCreateVG } =require('../middlewares/checkData')
 /* const {
     handleInputChange,
@@ -76,22 +77,21 @@ export default function VGCreate() {
             [e.target.name]: e.target.value })
     }
     
-      
-
+     
     function handleCheckGenre(e) {      
         if (e.target.checked){
             setInput({
             ...input,
             genres: [...input.genres, e.target.value]
             })
-        }       // REVISAR SI TENGO QUE HACER UN UNCHEKK!!!!!
-        /* if (e.target.checked){
-            setInput({
-            ...input,
-            genres: [...input.genres, e.target.value]
-            })
-        } */
-        
+        }   
+        if (!e.target.checked){
+            setInput(prevState => ({
+                ...prevState,
+                genres: input.genres.filter(g => e.target.value !== g)
+            }))
+        }  
+         
         console.log(input)
     }
 
@@ -102,8 +102,14 @@ export default function VGCreate() {
         if (e.target.checked){
             setInput({
             ...input,
-            platforms: [...input.platforms, e.target.value]
+                platforms: [...input.platforms, e.target.value]
             })
+        }
+        if (!e.target.checked){
+            setInput(prevState => ({
+                ...prevState,
+                platforms: input.platforms.filter(p => e.target.value !== p)
+            }))
         }
         setError(validateCreateVG({
             ...input,
@@ -184,17 +190,17 @@ export default function VGCreate() {
         dispatch(getGenres());
     },[dispatch])
 
-    /* useEffect (()=>{
-        setError(checkDataCreateVG(input));
-    },[input]) */
+    useEffect (()=>{ //con este useffect mantengo en tiempo real,m renderizado, el estado de los erores
+        setError(validateCreateVG(input));
+    },[input])
 
 
     const validateCreateVG = (input) => {
         let errors =  {};
         if (!input.name){
           errors.name = 'Game name is requiered';
-        /* } else if(!/\S+@\S+\.\S+/.test(input.name)){
-          errors.name="Name is invalid"; */
+        } else if(!/^(?=[\p{L}])[\p{L}\p{N}_@,.&$%#\s-]{1,40}$/u.test(input.name)){
+          errors.name="Name is invalid";
         } else if (input.name.length < 4) {
             errors.name = 'Game Name must have at least 4 characters';
         }
@@ -214,7 +220,10 @@ export default function VGCreate() {
             }else if(input.released.slice(0, 4)<1970) {
                 setError({...errors.released = 'Date cannot be before 1970'})
         }
-   
+        if(input.image && !/\.(jpe?g|png|gif|bmp)$/i.test(input.image)){
+            errors.image="Image URL is invalid"
+        }
+
         return errors;
       
     };
@@ -222,7 +231,7 @@ export default function VGCreate() {
 
     return(
         <div>
-            <Link to= '/home'><button>Home</button></Link>
+            {/* <Link to= '/home'><button>Home</button></Link> */}
             <h1>Add Videogame</h1>
 
             <form onSubmit={(e) => handleSubmit(e)}>
@@ -309,6 +318,7 @@ export default function VGCreate() {
                     name= 'image'
                     onChange={handleInputChange} //se pueden poner asi o ejecutandolos con ()
                     />
+                    {errors.image && (<p className='error'>{errors.image}</p>)} 
                 </div>
 
                 <div className='divInputLabel'>
