@@ -1,4 +1,5 @@
 import React from "react";
+import styles from './PageBraker.module.css';
 
 export default function PageBreaker ({vgPerPage, allVideogames, pageBreaker}){
     const pageNumbers = [];
@@ -11,11 +12,11 @@ export default function PageBreaker ({vgPerPage, allVideogames, pageBreaker}){
     return(
         <nav>
             {/* este componente renderiza los numeritos */}
-            <ul className="pageBreaker">
+            <ul className={styles.pageBreaker}>
                 { pageNumbers &&   // fijate si el arreglo pageNumbers tiene algo, si tiene:
                 pageNumbers.map(number =>(  //lo mapeo por cada numero que tenga el paginado 
                     //ojo quizas parentesis y no lave - ver selena
-                    <li className="number" key={number}>
+                    <li className={styles.btnNumber} key={number}>
                     <a onClick={() => pageBreaker(number)}>{number}</a>
                     </li>
                 ))

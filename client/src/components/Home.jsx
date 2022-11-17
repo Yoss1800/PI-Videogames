@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllVG, getGenres, sortByName, sortByRating, filterByGenre } from '../redux/actions';
-import { Link as NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Card from './Card';
 import PageBreaker from './PageBraker';
 import SearchBar from './SearchBar';
@@ -24,7 +24,7 @@ export default function Home(){
        //DEFINIMNOS VARIOS ESTADOS LOCALES:
     //-A estado con la pag actual / B- estado que me setee la pagf actual
     const [currentPage, setCurrentPage] = useState(1); //guardame en estado local pag actual y una constante que me setee la pag actual
-    const [vgPerPage, setVideogamesPerPage] = useState(16); //guardame cuantos paises quiero por pagina
+    const [vgPerPage, setVideogamesPerPage] = useState(15); //guardame cuantos paises quiero por pagina
     const indexOfLastVG = currentPage * vgPerPage; // nro de pag * cant de card por pag me da el ultimo card esto seria igual a 10
     const indexOfFirstVG = indexOfLastVG - vgPerPage; //0
     const currentVG =  allVideogames.slice(indexOfFirstVG, indexOfLastVG);   //Obtengo array con los cards entre ambos index
@@ -84,13 +84,13 @@ export default function Home(){
 
             {/* los values son los correspòndientes de la api o la DB */}
             
-                <select onChange={e => handlerFilterGenre(e)}> {/* cuando se selecciona, toma valor a filtrar */}                   
+                <select className={styles.select} onChange={e => handlerFilterGenre(e)}> {/* cuando se selecciona, toma valor a filtrar */}                   
                 <option value= 'allGenre'>All Genres</option>
                     {allGenresArray.sort().map(g => {
                     return <option value={g}>{g}</option>})} 
                 </select>
 
-                <select onChange={e => handlerSortCards(e)}>
+                <select className={styles.select} onChange={e => handlerSortCards(e)}>
                     <option value= 'asc'>A-Z</option>
                     <option value= 'desc'>Z-A</option>
                     <option value= 'rating-+'>Rating - +</option>
@@ -111,10 +111,10 @@ export default function Home(){
                 currentcountires apra los actuales de la pag*/}
                 {currentVG?.map(v => {
                     return (
-                        <div>
-                        <NavLink to={`/videogames/${v.id}`}>   
+                        <div className={styles.card}>
+                        <Link to={`/videogames/${v.id}`} className={styles.link}>   
                         <Card name={v.name} genres={v.genres} image={v.image}/>
-                        </NavLink>
+                        </Link>
                         </div>
                     )      
                 })

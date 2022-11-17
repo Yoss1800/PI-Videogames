@@ -1,0 +1,41 @@
+@import './CSS_elements/vars.css';
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/*  .card {
+    text-decoration: none;
+    text-underline-offset: none;
+    text-decoration-line: none;
+    text-transform: uppercase;
+
+} */
+
+.link {
+    text-decoration: none;
+}
+
+.pageBreaker {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.select {
+    font-size: large;
+    font-weight: bold;
+    color: black;
+
+
+    margin-left: 5px;
+
+    padding: 5px;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: var(--color-BTN);
+    
+
+}

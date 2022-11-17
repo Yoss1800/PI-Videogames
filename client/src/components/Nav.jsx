@@ -10,9 +10,9 @@ function Nav({onSearch}) {
 
     return (
         <div className={styles.navbarDiv}> 
-                <NavLink to= '/create-videogame'><button>New Videogame</button></NavLink>
-                <NavLink to= '/home'><button>All Videogames</button></NavLink>
-                <NavLink to="/about"><button>About</button></NavLink>
+                <NavLink to= '/create-videogame'><button>ADD GAME</button></NavLink>
+                <NavLink to= '/home'><button>ALL GAMES</button></NavLink>
+                <NavLink to="/about"><button>ABOUT</button></NavLink>
                 <div>
           {/* <SearchBar onSearch={onSearch}/> */}
         </div>

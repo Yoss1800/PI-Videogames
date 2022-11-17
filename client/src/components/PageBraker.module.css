@@ -1,0 +1,33 @@
+@import './CSS_elements/vars.css';
+
+ul {
+    display: flex;
+    flex-direction: row;
+}
+
+li {
+    list-style:none;
+    margin: 20px;
+    width: 40px;
+}
+
+.btnNumber {
+    display: flex;
+    justify-content: center;
+    width: 2.5rem;
+    align-items: center;
+    height: 2.5rem;
+    font-size: larger;
+    font-weight: bold;
+    border-radius: 2rem;
+    background-color: var(--color-searchbar);
+    color:black;
+    border-color: var(--color-Green-Boxes);
+    box-shadow: 1px 2px 4px 1px var(--color-Green-Boxes);
+}
+
+.btnNumber:hover {
+    transform: scale(1.05);
+	transition: all 0.5s ease-in-out;
+    cursor: pointer;
+}

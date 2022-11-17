@@ -1,0 +1,41 @@
+@import './CSS_elements/vars.css';
+
+
+.card {
+    flex-wrap: wrap;
+    border: 1px solid black;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 4px 9px 2px var(--color-Green-Boxes);
+    width: 250px;
+    height: 320px;
+}
+
+.card:hover {
+	transform: scale(1.05);
+	background-color: rgba(0, 0, 0, 0.4);
+	transition: all 0.5s ease-in-out;
+	
+}
+
+.image {
+    border-radius: 10px;
+    object-fit: cover;
+    width: 80%;
+    min-height: 60%;
+    max-height: 200px;
+  
+}
+
+.name {
+    text-transform: uppercase;
+    color: var(--color-Green-Boxes);
+    
+}
+
+.genre {
+    color: var(--color-searchbar);
+   
+}
+
