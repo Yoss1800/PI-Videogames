@@ -1,0 +1,62 @@
+@import './CSS_elements/vars.css';
+
+.addVGgeneral {
+    color: var(--color-Green-Boxes);
+}
+
+.error {
+    color: var(--color-Error-Text);
+    font-weight: lighter;
+    font-size: 80%;
+}
+
+.formDiv {
+    display: flex;
+    justify-content: center;
+    
+    
+}
+
+.genresDiv {
+    justify-content: center;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    width:650px;
+    margin-bottom: 30px;
+}
+
+.platformsDiv {
+    justify-content: center;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    width:650px;
+    height: 100px;
+    
+}
+
+.inputDiv {
+    
+    padding: 20px;
+    background-color: rgb(60, 51, 38);
+    
+}
+
+.ratingDiv {
+    padding: 20px;
+}
+
+.boxes {
+    margin-left: 10px;
+}
+
+.boxesDescription {
+    margin-left: 20px;
+    background-color: blue;
+
+}
+
+h3 {
+    margin-right: 100px;
+}

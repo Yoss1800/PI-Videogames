@@ -1,0 +1,37 @@
+@import './CSS_elements/vars.css';
+
+.name {
+    text-transform: uppercase;
+    color: var(--color-Green-Boxes);
+
+}
+
+
+.genres {
+    color: var(--color-Green-Boxes);
+
+}
+
+
+.released {
+    color: var(--color-Green-Boxes);
+
+}
+
+
+.rating {
+    color: var(--color-Green-Boxes);
+
+}
+
+.platforms {
+    color: var(--color-Green-Boxes);
+
+}
+
+
+.description {
+    color: var(--color-Green-Boxes);
+    text-justify: newspaper;
+
+}

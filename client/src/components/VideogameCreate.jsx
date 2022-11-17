@@ -213,7 +213,7 @@ export default function VGCreate() {
             errors.rating = 'Rating is required';
         }
         if (input.platforms.length < 1) {
-            errors.rating = 'Must choose at least one platform';
+            errors.platforms = 'Must choose at least one platform';
         }
         if(input.released.slice(0, 4)>2024) {
             setError({...errors.released = 'Date cannot be after 2024'})
@@ -230,121 +230,127 @@ export default function VGCreate() {
 
 
     return(
-        <div>
+        <div className={styles.addVGgeneral}>
             {/* <Link to= '/home'><button>Home</button></Link> */}
-            <h1>Add Videogame</h1>
+            <h1>ADD A GAME</h1>
 
-            <form onSubmit={(e) => handleSubmit(e)}>
+            <div className={styles.formDiv}>
+                <form onSubmit={(e) => handleSubmit(e)}>
 
-                <div className='divInputLabel'>
-                    <label>Name:</label>
-                    <input
-                    type= 'text'
-                    value= {input.name}
-                    name= 'name'
-                    onChange={handleInputChange} //se pueden poner asi o ejecutandolos con ()
-                    />
-                    {/* si hay error, renderizo un p con el error */}
-                    {errors.name && (<p className='error'>{errors.name}</p>)}
-                </div>
+                    <div className={styles.inputDiv}>
+                        <label>Name: </label>
+                        <input
+                        className= {styles.boxes}
+                        type= 'text'
+                        value= {input.name}
+                        name= 'name'
+                        onChange={handleInputChange} //se pueden poner asi o ejecutandolos con ()
+                        />
+                        {/* si hay error, renderizo un p con el error */}
+                        {errors.name && (<p className={styles.error}>{errors.name}</p>)}
+                    </div>
 
-                <div className='divInputLabel'>
-                    <label>Released: </label>
-                    <input  
-                    type='date' 
-                    name='released' 
-                    key='released' 
-                    value={input.released}
-                    onChange={(e) => handleReleased(e)}
-                    />
-                    {errors.released && (<p className='error'>{errors.released}</p>)}
-                </div>
+                    <div className={styles.inputDiv}>
+                        <label>Released: </label>
+                        <input
+                        className= {styles.boxes}
+                        type='date' 
+                        name='released' 
+                        key='released' 
+                        value={input.released}
+                        onChange={(e) => handleReleased(e)}
+                        />
+                        {errors.released && (<p className={styles.error}>{errors.released}</p>)}
+                    </div>
 
-                <div className='divInputLabel'>
-                    <h3>Rating:</h3>
-                    <select onChange={e => handleSelectRating(e)}>
-                        <option value= '0'>Select</option>
-                        <option value= '1'>1</option>
-                        <option value= '2'>2</option>
-                        <option value= '3'>3</option>
-                        <option value= '4'>4</option>
-                        <option value= '5'>5</option>
-                    </select>
-                    {errors.rating && (<p className='error'>{errors.rating}</p>)}
-                </div>
+                    <div className={styles.ratingDiv}>
+                        <label>Rating: </label>
+                        <select className= {styles.boxes} onChange={e => handleSelectRating(e)}>
+                            <option value= '0'>Select</option>
+                            <option value= '1'>1</option>
+                            <option value= '2'>2</option>
+                            <option value= '3'>3</option>
+                            <option value= '4'>4</option>
+                            <option value= '5'>5</option>
+                        </select>
+            
+                        {errors.rating && (<p className={styles.error}>{errors.rating}</p>)}
+                
+                    </div>
 
-                <div className='divInputLabel'>
-					<label>-Genres-</label>
-						<div>
-							{allGenresArray.sort().map((g) => (
-								<div key={g}>
-                                    <label>{g}</label>
-                                    <input
-                                    type= 'checkbox'
-                                    value= {g}
-                                    name= {g}
-                                    onChange={(e) => handleCheckGenre(e)}
-                                    />
-								</div>
-                                    
-							))}
-						</div>		
-				</div> 
+                    <div className={styles.inputCheckDiv}>
+                        <label>Genres:</label>
+                            <div className={styles.genresDiv}>
+                                {allGenresArray.sort().map((g) => (
+                                    <div key={g}>
+                                        <label>{g}</label>
+                                        <input
+                                        type= 'checkbox'
+                                        value= {g}
+                                        name= {g}
+                                        onChange={(e) => handleCheckGenre(e)}
+                                        />
+                                    </div>
+                                        
+                                ))}
+                            </div>		
+                    </div> 
 
 
-                <div className='divInputLabel'>
-					<label>-Platforms-</label>
-						<div>
-							{platformsArray.sort().map((p) => (
-								<div key={p}>
-                                    <label>{p}</label>
-                                    <input
-                                    type= 'checkbox'
-                                    value= {p}
-                                    name= {p}
-                                    onChange={(e) => handleCheckPlatform(e)}
-                                    />
-								</div>   
-							))}
-                            {errors.platforms && (<p className='error'>{errors.platforms}</p>)}
-						</div>		
-				</div>
+                    <div className={styles.inputCheckDiv}>
+                        <label>Platforms:</label>
+                            <div className={styles.platformsDiv}>
+                                {platformsArray.sort().map((p) => (
+                                    <div key={p}>
+                                        <label>{p}</label>
+                                        <input
+                                        type= 'checkbox'
+                                        value= {p}
+                                        name= {p}
+                                        onChange={(e) => handleCheckPlatform(e)}
+                                        />
+                                    </div>   
+                                ))}
+                                {errors.platforms && (<p className={styles.error}>{errors.platforms}</p>)}
+                            </div>		
+                    </div>
 
-                <div className='divInputLabel'>
-                    <label>Image:</label>
-                    <input
-                    type= 'text'
-                    value= {input.image}
-                    name= 'image'
-                    onChange={handleInputChange} //se pueden poner asi o ejecutandolos con ()
-                    />
-                    {errors.image && (<p className='error'>{errors.image}</p>)} 
-                </div>
+                    <div className={styles.inputDiv}>
+                        <label>Image: </label>
+                        <input
+                        className= {styles.boxes}
+                        type= 'text'
+                        value= {input.image}
+                        name= 'image'
+                        onChange={handleInputChange} //se pueden poner asi o ejecutandolos con ()
+                        />
+                        {errors.image && (<p className={styles.error}>{errors.image}</p>)} 
+                    </div>
 
-                <div className='divInputLabel'>
-                    <label>Description: </label>
-                    <input
-                    name='description'
-                    placeholder='Description...'
-                    value={input.description}
-                    onChange={(e) => handleInputChange(e)}
-                    />
-                    {errors.description && (<p className='error'>{errors.description}</p>)}         
-                </div>       
+                    <div className={styles.inputDiv}>
+                        <label>Description: </label>
+                        <input
+                        className= {styles.boxesDescription}
+                        name='description'
+                        placeholder='Description...'
+                        value={input.description}
+                        onChange={(e) => handleInputChange(e)}
+                        />
+                        {errors.description && (<p className={styles.error}>{errors.description}</p>)}         
+                    </div>       
 
-                <button type='submit' disabled={
-                    !input.name || 
-                    errors.name ||
-                    input.rating === 0 || 
-                    input.platforms.length < 1 ||
-                    !input.description ||
-                    errors.description
-                    }>Create</button>
-                {/* DESHABOLITAR BOTON SI HAY ERRORES!!!!! */}
+                    <button className={styles.submitBTN} type='submit' disabled={
+                        !input.name || 
+                        errors.name ||
+                        input.rating === 0 || 
+                        input.platforms.length < 1 ||
+                        !input.description ||
+                        errors.description
+                        }>Create</button>
+                    {/* DESHABOLITAR BOTON SI HAY ERRORES!!!!! */}
 
-            </form>
-
+                </form>
+            </div>
         </div>
     )
-
 }
