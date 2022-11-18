@@ -9,7 +9,7 @@
     border-radius: 10px;
     box-shadow: 2px 4px 9px 2px var(--color-Green-Boxes);
     width: 250px;
-    height: 320px;
+    height: 350px;
 }
 
 .card:hover {
@@ -25,13 +25,13 @@
     width: 80%;
     min-height: 60%;
     max-height: 200px;
-  
 }
 
 .name {
     text-transform: uppercase;
     color: var(--color-Green-Boxes);
-    
+    width: 290px;
+    margin-left: -20px;
 }
 
 .genre {

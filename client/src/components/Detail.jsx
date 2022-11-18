@@ -1,8 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, __html } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 //import { Link } from 'react-router-dom';
 import { getDetail, cleanDetail } from '../redux/actions';
+import DOMPurify from "dompurify"; //para usar variabkes html safe. Source: https://www.pluralsight.com/guides/how-to-use-static-html-with-react
 import styles from './Detail.module.css';
+
+//var parse = require('html-react-parser');
 
 
 export default function Detail(props) {
@@ -25,6 +28,10 @@ export default function Detail(props) {
     console.log(genres)
     console.log(platforms)
 
+    const safeDescription =  DOMPurify.sanitize(description);
+
+    console.log(safeDescription)
+
     return (
         <div>
             {
@@ -32,20 +39,17 @@ export default function Detail(props) {
                 //detail es un arreglo, por eso tengo que poner el [0] para acceder al objeto con el detalle
                 <div className={styles.detailDiv}>
                     <h1 className={styles.name}>{name}</h1>
-                    <img src={image} /* alt='image not found' */ width='250px' heigth='300px'/>
-                    <h3 className={styles.genres}>GENRES: {genres?.join(", ")}</h3>
-                    <h3 className={styles.released}> RELEASED: {released}</h3>
-                    <h3 className={styles.rating}>RATING: {rating}</h3>
-                    {/* <h3 className={styles.platforms}>PLATFORMS: {platforms}</h3> */}
-                    {/* <p className={styles.description}>{description}</p> */}
-
-                    <h3 className={styles.rating}>PLATFORMS: {platforms?.join(", ")}</h3>
-                   {/*  <div>
-                    
-                    {{__html: description}}
-                    </div> */}
-                
-                    <p className={styles.description}>{description?.replace(/(<([^>]+)>)/gi, "")}</p>
+                    <img className={styles.img} src={image} /* alt='image not found' */ width='250px' heigth='300px'/>
+                    <h2>GENRES:</h2>
+                    <h3>{genres?.join(", ")}</h3>
+                    <h2>RELEASED:</h2>
+                    <h3>{released}</h3>
+                    <h2>RATING:</h2>
+                    <h3>{rating}</h3>
+                    <h2>PLATFORMS:</h2>
+                    <h3>{platforms?.join(", ")}</h3>
+                    <div className={styles.description} dangerouslySetInnerHTML={{ __html: safeDescription }} />             
+                    {/* <p className={styles.description}>{description?.replace(/(<([^>]+)>)/gi, "")}</p> */}
 
                 </div> //: <p>Loading...</p> //renderizo un loading con : - si no rompe el condicional
             }

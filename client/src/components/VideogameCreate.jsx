@@ -285,6 +285,7 @@ export default function VGCreate() {
                                     <div key={g}>
                                         <label>{g}</label>
                                         <input
+                                        className= {styles.checkbox}
                                         type= 'checkbox'
                                         value= {g}
                                         name= {g}
@@ -304,6 +305,7 @@ export default function VGCreate() {
                                     <div key={p}>
                                         <label>{p}</label>
                                         <input
+                                        className={styles.checkbox}
                                         type= 'checkbox'
                                         value= {p}
                                         name= {p}
@@ -329,10 +331,10 @@ export default function VGCreate() {
 
                     <div className={styles.inputDiv}>
                         <label>Description: </label>
-                        <input
+                        <textarea
                         className= {styles.boxesDescription}
                         name='description'
-                        placeholder='Description...'
+                        /* placeholder='Description...' */
                         value={input.description}
                         onChange={(e) => handleInputChange(e)}
                         />

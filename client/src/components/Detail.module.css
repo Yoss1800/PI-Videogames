@@ -1,37 +1,34 @@
 @import './CSS_elements/vars.css';
 
+h2 {
+    color: var(--color-Green-Boxes);
+    margin-top: 4%;
+}
+
+h3 {
+    color: var(--color-Green-Boxes);
+    margin-left: 100px;
+}
+
 .name {
     text-transform: uppercase;
     color: var(--color-Green-Boxes);
-
+    margin-bottom: 4%;
+    margin-top: 5%;
+   
 }
 
-
-.genres {
-    color: var(--color-Green-Boxes);
-
+.img {
+    border-radius: 10px;
+    box-shadow: 2px 4px 9px 2px var(--color-Green-Boxes);
+    height: 50%;
+    width: 50%;
 }
-
-
-.released {
-    color: var(--color-Green-Boxes);
-
-}
-
-
-.rating {
-    color: var(--color-Green-Boxes);
-
-}
-
-.platforms {
-    color: var(--color-Green-Boxes);
-
-}
-
 
 .description {
     color: var(--color-Green-Boxes);
-    text-justify: newspaper;
-
+    padding: 5%;
+    margin-top: -50px;
+    text-align: justify;
 }
+
