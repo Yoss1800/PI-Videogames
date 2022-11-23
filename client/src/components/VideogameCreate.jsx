@@ -232,7 +232,7 @@ export default function VGCreate() {
     return(
         <div className={styles.addVGgeneral}>
             {/* <Link to= '/home'><button>Home</button></Link> */}
-            <h1>ADD A GAME</h1>
+            <h1 className={styles.h1}>ADD A GAME</h1>
 
             <div className={styles.formDiv}>
                 <form onSubmit={(e) => handleSubmit(e)}>

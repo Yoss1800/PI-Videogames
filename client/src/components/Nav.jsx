@@ -12,7 +12,7 @@ function Nav({onSearch}) {
         <div className={styles.navbarDiv}> 
                 <NavLink to= '/create-videogame'><button>ADD GAME</button></NavLink>
                 <NavLink to= '/home'><button>ALL GAMES</button></NavLink>
-                <NavLink to="/about"><button>ABOUT</button></NavLink>
+                <NavLink to= '/about'><button>ABOUT</button></NavLink>
                 <div>
           {/* <SearchBar onSearch={onSearch}/> */}
         </div>
@@ -24,18 +24,3 @@ function Nav({onSearch}) {
 
 export default Nav;
 
-
-
-/* function Nav({onSearch}) { //search que viene de nav, va ahora a searchbar
-  return (
-    <div className={estilos.contenedor}>
-      <img src={Logo}  alt='image not found' width={40} />
-      <span>NoPegoUna Weather</span>
-      <SearchBar onSearch={(ciudad) => alert(ciudad)}/>
-
-
-    </div>
-  );
-};
-
-export default Nav; */

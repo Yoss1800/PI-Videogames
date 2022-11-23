@@ -1,0 +1,55 @@
+@import './CSS_elements/vars.css';
+
+h1 {
+    color: var(--color-Green-Boxes);
+    margin-top: 4%;
+    
+    text-align: left;
+
+}
+
+h4 {
+    color: var(--color-Green-Boxes);
+    text-align: left;
+    margin-bottom: 50px;
+    
+}
+
+h5 {
+    color: var(--color-Green-Boxes);
+    text-align: left;
+
+}
+
+.link {
+    text-decoration: none;
+    color: var(--color-Green-Boxes);
+
+}
+
+.link:hover {
+    cursor: pointer;
+    color: var(--color-searchbar);
+    transition: 0.3s;
+}
+
+
+.text404 {
+    margin-right: 10%;
+}
+
+.main404Div {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.image404 {
+    margin-top: 3%;
+    margin-right: 5%;
+}
+
+.image {
+    height: auto;
+    max-width: 55%;
+}

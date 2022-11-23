@@ -1,5 +1,9 @@
 @import './CSS_elements/vars.css';
 
+.h1 {
+    text-align: center;
+}
+
 .addVGgeneral {
     color: var(--color-Green-Boxes);
 }
