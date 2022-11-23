@@ -75,9 +75,10 @@ export default function Home(){
 
     //renderizamos con el return
     return (
-        <div className={styles.searchBar}>
-            <SearchBar/>
-
+        <div className={styles.homeMainDiv}>
+            <Nav />
+            <SearchBar />
+        <div className={styles.contentDiv}>
             {/* aca hacemos los filtros:
             -el value dentro de la option, me permite acceder y preguntar: de acuerdo al value tomar una desicion / accion 
             si son mas opciones, podemos usar un map}
@@ -98,14 +99,6 @@ export default function Home(){
                 </select>
             
         <div className={styles.cards}>
-            {/* <NavLink to= '/create-videogame'>New Videogame</NavLink>
-            <NavLink to= '/home'>All Videogames</NavLink> */}
-        
-        
-
-            
-
-        
                 {/* renderizo la card pais con el componente card: (paso props que quiero -chequear del estado global) 
                 allcountries para todos los countries
                 currentcountires apra los actuales de la pag*/}
@@ -119,8 +112,6 @@ export default function Home(){
                     )      
                 })
                 }
-
-
         </div>
 
         <div className={styles.pageBreaker}>
@@ -131,6 +122,7 @@ export default function Home(){
                 />
         </div>
 
+        </div>
         </div>
     )   
 

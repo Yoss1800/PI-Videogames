@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 //import { Link } from 'react-router-dom';
 import { getDetail, cleanDetail } from '../redux/actions';
 import DOMPurify from "dompurify"; //para usar variabkes html safe. Source: https://www.pluralsight.com/guides/how-to-use-static-html-with-react
+import Nav from './Nav'
 import styles from './Detail.module.css';
 
 //var parse = require('html-react-parser');
@@ -34,12 +35,13 @@ export default function Detail(props) {
 
     return (
         <div>
+            <Nav />
             {
                 //detail.length > 0 ? 
                 //detail es un arreglo, por eso tengo que poner el [0] para acceder al objeto con el detalle
                 <div className={styles.detailDiv}>
                     <h1 className={styles.name}>{name}</h1>
-                    <img className={styles.img} src={image} /* alt='image not found' */ width='250px' heigth='300px'/>
+                    <img className={styles.img} src={image} alt='' width='250px' heigth='300px'/>
                     <h2>GENRES:</h2>
                     <h3>{genres?.join(", ")}</h3>
                     <h2>RELEASED:</h2>

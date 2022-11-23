@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGenres, postVG } from '../redux/actions';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import Nav from './Nav'
 import styles from './VideogameCreate.module.css';
+
 //const { validateCreateVG } =require('../middlewares/checkData')
 /* const {
     handleInputChange,
@@ -132,23 +134,6 @@ export default function VGCreate() {
         console.log(input) 
     }
 
-    //revisar fcn  fprt
-/*     function handleDescription(e){ //me faltaria poner que si el .length es mayor a 200 que tire un error y lo de los caracteres
-        if(e.target.value === '' || e.target.value.length === 0){
-          setError({...errors, description:'You must enter a description'})
-        }
-        else if(e.target.value.length >= 1){
-          if(e.target.value.length > 150){
-            setError({...errors, description:'The description should not have more than 150 characters'})
-          }
-          setError({...errors, description:''})
-        }
-        setInput({
-          ...input,
-          description: e.target.value
-        })
-      } */
-
     function handleSubmit(e) {
         e.preventDefault(); //para que no se refresque navegador automaticamente
         dispatch(postVG(input));
@@ -165,26 +150,6 @@ export default function VGCreate() {
             history.push('/home'); //cuando termina envio al home 
         }
 
-/*     function handleSubmit(e) {
-        e.preventDefault(); //par que no se refresqie navegador automaticamente
-        if(Object.keys(error).length) { //devuelve un array con contenido del objetom si el key esta vacio no devuelve nada y el length es 0
-            console.log(input)
-            alert('Chack data entered')
-        }else{
-            dispatch(postVG(input));
-            alert('Videogame Added!');
-            setInput({ //le reseteo el imput
-                name: '',
-                rating: 0,
-                platforms: [],
-                genres: [],
-                released: '',
-                image: '',
-                description: ''
-            })
-            history.push('/home'); //cuando termina envio al home    
-        }        
-    } */
 
     useEffect (()=>{
         dispatch(getGenres());
@@ -231,6 +196,7 @@ export default function VGCreate() {
 
     return(
         <div className={styles.addVGgeneral}>
+        <Nav />
             {/* <Link to= '/home'><button>Home</button></Link> */}
             <h1 className={styles.h1}>ADD A GAME</h1>
 

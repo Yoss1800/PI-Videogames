@@ -1,12 +1,14 @@
 import React from 'react';
+import Nav from './Nav'
 import styles from './VideogameCreate.module.css';
 
 
 
 export default function About() {
 
-    return (
+    return ( 
         <div>
+        <Nav />
             {
                 <div className={styles.aboutDiv}>
                     <h2>Proyecto Individual de:</h2>
