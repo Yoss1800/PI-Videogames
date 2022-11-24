@@ -7,13 +7,16 @@ import {
     SORT_BY_NAME, 
     SORT_BY_RATING,
     FILTER_BY_GENRE,
-    CLEAN_DETAIL } from "./actions";
+    CLEAN_DETAIL,
+    CLEAN_VG,
+    SET_LOADING } from "./actions";
 
 const initialState = {
     videogames: [],
     allVideogames: [],
     genres: [],
-    detail: {}
+    detail: {},
+    loading: true
 }
 
 const rootReducer = (state= initialState, action)=>{
@@ -23,9 +26,22 @@ const rootReducer = (state= initialState, action)=>{
             return{
                 ...state,
                 videogames: action.payload,
-                allVideogames: action.payload //lo guardo en 2 estados para tener siuempre en all todos y no depender del filtrado
+                allVideogames: action.payload, //lo guardo en 2 estados para tener siuempre en all todos y no depender del filtrado
+                loading: true // defecto no hace el load, vuando le dy pàyload false no load
             }
-            
+
+        case SET_LOADING: 
+            if (action.payload === false) 
+            return {
+                ...state, 
+                loading: false
+            }
+            else 
+            return {
+                ...state, 
+                loading: true
+            }
+
         case GET_VG_NAME:
             return {
                 ...state,
@@ -106,6 +122,13 @@ const rootReducer = (state= initialState, action)=>{
             return {
                 ...state,
                 detail: {}
+            }
+
+        case CLEAN_VG:
+            return {
+                ...state,
+                videogames: [],
+                allVideogames: [],
             }
             
     

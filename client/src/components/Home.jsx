@@ -7,6 +7,7 @@ import PageBreaker from './PageBraker';
 import SearchBar from './SearchBar';
 import Nav from './Nav';
 import styles from './Home.module.css'
+import loader from '../img/loader.gif'
 
 
 export default function Home(){
@@ -37,7 +38,9 @@ export default function Home(){
     // use effect es un hook de didmount y didupdate (en 2do parametro, array de dependencias).. maneja ambos
    
     useEffect (()=>{
+        if(!allVideogames.length) { //si en el estado de videogames no hay nada, hace esto
         dispatch(getAllVG());
+        }
     },[dispatch]) // ese ultimo array, (Array de dependencias) se pone de lo que depende didmount del dispatch - si le paso en el array algo lo hace, si no no hace nada
     // cuando componente se actializa, esto se ejecuta
     // en array paso una variable, si esa variable cambia, se ejecuta useEffect ej: [var]
@@ -102,7 +105,47 @@ export default function Home(){
                 {/* renderizo la card pais con el componente card: (paso props que quiero -chequear del estado global) 
                 allcountries para todos los countries
                 currentcountires apra los actuales de la pag*/}
-                {currentVG?.map(v => {
+
+                {/* no hay vg, mostra las cartas, sino, mostra el cargando */}
+                {currentVG.length ? (
+                currentVG.map((v) => (
+                    <Link to={`/videogames/${v.id}`} className={styles.link}>   
+                        <Card name={v.name} genres={v.genres} image={v.image}/>
+                    </Link>
+                ))
+                ) : typeof currentVG === "string" ? ( //si recibe error como respuesta
+                    <div>
+                        not found - error 404
+                    </div>
+                ) : (
+                    <div>
+                    <img className={styles.loader} src={loader} alt=""></img>
+                    </div>
+                )}
+        </div>
+
+
+
+        {/* {currentVG.length > 1 ? (
+                currentVG?.map((v) => (
+                    <Link to={`/videogames/${v.id}`} className={styles.link}>   
+                        <Card name={v.name} genres={v.genres} image={v.image}/>
+                        </Link>
+                ))
+                ) : typeof currentVG === "string" ? (
+                    <div>
+                        not found
+                    </div>
+                ) : (
+                    <div>
+                    <img className={styles.loader} src={loader} alt=""></img>
+                    </div>
+                )} */}
+
+
+
+        
+                {/* {currentVG?.map(v => {
                     return (
                         <div className={styles.card}>
                         <Link to={`/videogames/${v.id}`} className={styles.link}>   
@@ -111,13 +154,13 @@ export default function Home(){
                         </div>
                     )      
                 })
-                }
-        </div>
+                } */}
+       
 
         <div className={styles.pageBreaker}>
         <PageBreaker
                     vgPerPage = {vgPerPage}
-                    allVideogames = {allVideogames.length}
+                    allVideogames = {allVideogames?.length}
                     pageBreaker = {pageBreaker}
                 />
         </div>

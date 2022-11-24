@@ -1,9 +1,10 @@
-import React, { useEffect, __html } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 //import { Link } from 'react-router-dom';
 import { getDetail, cleanDetail } from '../redux/actions';
 import DOMPurify from "dompurify"; //para usar variabkes html safe. Source: https://www.pluralsight.com/guides/how-to-use-static-html-with-react
-import Nav from './Nav'
+import Nav from './Nav';
+//import Page404 from './Page404';
 import styles from './Detail.module.css';
 
 //var parse = require('html-react-parser');
@@ -22,10 +23,12 @@ export default function Detail(props) {
 
     }, [dispatch, props.match.params.id])
 
-   //traigo el estado
-    let { name, image, genres, released, rating, platforms, description } = useSelector((state) => state.detail)
+
+    let { name, image, genres, released, rating, platforms, description } = useSelector((state) => state.detail) 
 
 
+    /* if (!name) return (<Page404 />);
+ */
     console.log(genres)
     console.log(platforms)
 

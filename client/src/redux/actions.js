@@ -11,6 +11,8 @@ export const SORT_BY_NAME = "SORT_BY_NAME";
 export const SORT_BY_RATING = "SORT_BY_RATING";
 export const FILTER_BY_GENRE = "FILTER_BY_GENRE";
 export const CLEAN_DETAIL = "CLEAN_DETAIL";
+export const CLEAN_VG = "CLEAN_VG";
+export const SET_LOADING = "SET_LOADING";
 
 
 //traigo los VG de la DB - CONECTO CON BACK - Return al dispatch?
@@ -95,4 +97,17 @@ export function cleanDetail() {
     return {
       type: CLEAN_DETAIL
     }
+}
+
+export function cleanVG() {
+  return {
+    type: CLEAN_VG
+  }
+}
+
+export function setLoading(payload) {
+  return {
+    type: SET_LOADING, 
+    payload
+  }
 }

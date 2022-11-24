@@ -2,8 +2,9 @@
 
 
  .myImage {
-  height: 100vh;
-  background-image: url("../img/BackLanding.jpg");
+  height: 105vh;
+  background-image: url("../img/SPACEGIF.gif");
+
   background-size: cover;
   display: flex;
   justify-content: center;
