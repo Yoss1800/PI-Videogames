@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getVgByName } from '../redux/actions';
+import { getVgByName, cleanVG } from '../redux/actions';
 import styles from './SearchBar.module.css';
 
 
@@ -22,6 +22,7 @@ export default function SearchBar () {
     function handleSubmit(e) {
         e.preventDefault();
         dispatch(getVgByName(name));
+        /* e.target.value = ''; */ // borrar search input ?
     }
 
 

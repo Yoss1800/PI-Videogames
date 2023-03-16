@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllVG, getGenres, sortByName, sortByRating, filterByGenre } from '../redux/actions';
+import { getAllVG, getGenres, sortByName, sortByRating, filterByGenre, filterCreated } from '../redux/actions';
 import { Link } from 'react-router-dom';
 import Card from './Card';
 import PageBreaker from './PageBraker';
@@ -61,6 +61,11 @@ export default function Home(){
         dispatch(filterByGenre(e.target.value));
     };
 
+    function handlerFilterCreated(e){
+        dispatch(filterCreated(e.target.value));
+    };
+
+
 
     function handlerSortCards(e){
         e.preventDefault();
@@ -100,6 +105,12 @@ export default function Home(){
                     <option value= 'rating-+'>Rating - +</option>
                     <option value= 'rating+-'>Rating + -</option>
                 </select>
+
+                <select className={styles.select} onChange={e => handlerFilterCreated(e)}>
+                    <option value= 'All'>All Games</option>
+                    <option value= 'created'>Created</option>
+                    <option value= 'api'>Data Base</option>
+                </select>
             
         <div className={styles.cards}>
                 {/* renderizo la card pais con el componente card: (paso props que quiero -chequear del estado global) 
@@ -107,8 +118,8 @@ export default function Home(){
                 currentcountires apra los actuales de la pag*/}
 
                 {/* no hay vg, mostra las cartas, sino, mostra el cargando */}
-                {currentVG.length ? (
-                currentVG.map((v) => (
+                {currentVG?.length ? (
+                currentVG?.map((v) => (
                     <Link to={`/videogames/${v.id}`} className={styles.link}>   
                         <Card name={v.name} genres={v.genres} image={v.image}/>
                     </Link>
@@ -123,39 +134,6 @@ export default function Home(){
                     </div>
                 )}
         </div>
-
-
-
-        {/* {currentVG.length > 1 ? (
-                currentVG?.map((v) => (
-                    <Link to={`/videogames/${v.id}`} className={styles.link}>   
-                        <Card name={v.name} genres={v.genres} image={v.image}/>
-                        </Link>
-                ))
-                ) : typeof currentVG === "string" ? (
-                    <div>
-                        not found
-                    </div>
-                ) : (
-                    <div>
-                    <img className={styles.loader} src={loader} alt=""></img>
-                    </div>
-                )} */}
-
-
-
-        
-                {/* {currentVG?.map(v => {
-                    return (
-                        <div className={styles.card}>
-                        <Link to={`/videogames/${v.id}`} className={styles.link}>   
-                        <Card name={v.name} genres={v.genres} image={v.image}/>
-                        </Link>
-                        </div>
-                    )      
-                })
-                } */}
-       
 
         <div className={styles.pageBreaker}>
         <PageBreaker

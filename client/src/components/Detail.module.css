@@ -22,6 +22,8 @@ h3 {
     border-radius: 10px;
     box-shadow: 2px 4px 9px 2px var(--color-Green-Boxes);
     height: 50%;
+    max-height: fit-content;
+    max-width: fit-content;
     width: 50%;
 }
 

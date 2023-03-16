@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGenres, postVG } from '../redux/actions';
-import { useHistory } from 'react-router-dom';
+import { getGenres, postVG, getAllVG } from '../redux/actions';
+import { useHistory, useNavigate } from 'react-router-dom';
 import Nav from './Nav'
 import styles from './VideogameCreate.module.css';
 
@@ -22,6 +22,7 @@ export default function VGCreate() {
     const dispatch = useDispatch();
     //history, metodo del router para  redirigir a donde quiera
     const history = useHistory();
+    //const navigate = useNavigate();
 
     const allGenres = useSelector((state) => state.genres);
     const allGenresArray = allGenres.map(g => g.name); //los saco del objeto antes para ordenarlos AZ despues
@@ -147,7 +148,9 @@ export default function VGCreate() {
                 image: '',
                 description: ''
             })
+            dispatch(getAllVG());
             history.push('/home'); //cuando termina envio al home 
+            //navigate('/home');
         }
 
 
@@ -179,6 +182,9 @@ export default function VGCreate() {
         }
         if (input.platforms.length < 1) {
             errors.platforms = 'Must choose at least one platform';
+        }
+        if (input.genres.length > 5) {
+            errors.platforms = 'Must choose only 4 genres';
         }
         if(input.released.slice(0, 4)>2024) {
             setError({...errors.released = 'Date cannot be after 2024'})
@@ -260,6 +266,7 @@ export default function VGCreate() {
                                     </div>
                                         
                                 ))}
+                                {errors.genres && (<p className={styles.error}>{errors.genres}</p>)}
                             </div>		
                     </div> 
 

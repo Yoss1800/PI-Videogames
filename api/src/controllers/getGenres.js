@@ -23,7 +23,7 @@ function fetchAllGenresfromAPI(){
         .catch(err=>console.log(err))        
 }
 
-
+//traigo generos de la DB al front
 const getGenres = async() => {
     const genresDB = await Genre.findAll({
         attributes: ['id', 'name'],   

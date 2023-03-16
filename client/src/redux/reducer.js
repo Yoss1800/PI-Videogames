@@ -7,16 +7,15 @@ import {
     SORT_BY_NAME, 
     SORT_BY_RATING,
     FILTER_BY_GENRE,
+    FILTER_BY_SOURCE,
     CLEAN_DETAIL,
-    CLEAN_VG,
-    SET_LOADING } from "./actions";
+    CLEAN_VG } from "./actions";
 
 const initialState = {
     videogames: [],
     allVideogames: [],
     genres: [],
     detail: {},
-    loading: true
 }
 
 const rootReducer = (state= initialState, action)=>{
@@ -27,19 +26,6 @@ const rootReducer = (state= initialState, action)=>{
                 ...state,
                 videogames: action.payload,
                 allVideogames: action.payload, //lo guardo en 2 estados para tener siuempre en all todos y no depender del filtrado
-                loading: true // defecto no hace el load, vuando le dy pàyload false no load
-            }
-
-        case SET_LOADING: 
-            if (action.payload === false) 
-            return {
-                ...state, 
-                loading: false
-            }
-            else 
-            return {
-                ...state, 
-                loading: true
             }
 
         case GET_VG_NAME:
@@ -84,7 +70,7 @@ const rootReducer = (state= initialState, action)=>{
 
             return {
                 ...state,
-                countries: sortdCardsName
+                videogames: sortdCardsName
             }
 
         case SORT_BY_RATING:
@@ -104,7 +90,7 @@ const rootReducer = (state= initialState, action)=>{
 
             return {
                     ...state,
-                    countries: sortedCardsGenre
+                    videogames: sortedCardsGenre
                 }   
 
         case FILTER_BY_GENRE:
@@ -117,6 +103,17 @@ const rootReducer = (state= initialState, action)=>{
                 ...state,
                 videogames: genreFiltered
             }
+
+
+        case FILTER_BY_SOURCE:
+            const allVideogames2 = state.allVideogames;
+
+            const createdFilter = action.payload === 'created' ? allVideogames2.filter( g => (typeof g.id) === 'string') : allVideogames2.filter( g => (typeof g.id) === 'number');
+            return{
+                ...state,
+                videogames: action.payload === 'All'? state.allVideogames : createdFilter
+            }
+
         
         case CLEAN_DETAIL:
             return {

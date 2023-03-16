@@ -8,6 +8,9 @@ import VideogameCreate from './components/VideogameCreate';
 //import Nav from './components/Nav';
 import About from './components/About';
 import Page404 from './components/Page404';
+import axios from 'axios';
+
+axios.defaults.baseURL = 'http://localhost:3001/';
 
 //SWITCH: si pongo un link que no existe.. te toma el ultimo valido / se mueve solo dentro de lo que envuelve
 
