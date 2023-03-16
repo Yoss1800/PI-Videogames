@@ -16,7 +16,7 @@ export default function PageBreaker ({vgPerPage, allVideogames, pageBreaker}){
                 { pageNumbers &&   // fijate si el arreglo pageNumbers tiene algo, si tiene:
                 pageNumbers.map(number =>(  //lo mapeo por cada numero que tenga el paginado 
                     <li className={styles.btnNumber} key={number}>
-                    <a onClick={() => pageBreaker(number)}>{number}</a>
+                    <a href onClick={() => pageBreaker(number)}>{number}</a>
                     </li>
                 ))
                 } 

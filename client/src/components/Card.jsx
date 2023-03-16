@@ -13,7 +13,7 @@ export default function Card({ name, genres, image }) {
                       : genres.join(", ")
                   }`}
             </h5>
-            <img className={styles.image} src={image} alt='image not found' width='250px' heigth='300px'/>
+            <img className={styles.image} src={image} alt='not found' width='250px' heigth='300px'/>
         </div>
     )
 }

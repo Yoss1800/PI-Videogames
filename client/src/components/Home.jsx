@@ -25,11 +25,11 @@ export default function Home(){
        //DEFINIMNOS VARIOS ESTADOS LOCALES:
     //-A estado con la pag actual / B- estado que me setee la pagf actual
     const [currentPage, setCurrentPage] = useState(1); //guardame en estado local pag actual y una constante que me setee la pag actual
-    const [vgPerPage, setVideogamesPerPage] = useState(15); //guardame cuantos paises quiero por pagina
+    const [vgPerPage /* setVideogamesPerPage */] = useState(15); //guardame cuantos paises quiero por pagina
     const indexOfLastVG = currentPage * vgPerPage; // nro de pag * cant de card por pag me da el ultimo card esto seria igual a 10
     const indexOfFirstVG = indexOfLastVG - vgPerPage; //0
     const currentVG =  allVideogames.slice(indexOfFirstVG, indexOfLastVG);   //Obtengo array con los cards entre ambos index
-    const [sorted, setSorted] = useState('');//genero estado vacio.. en la fcn de ordenar, renderiza la primera pag
+    const [/* sorted, */ setSorted] = useState('');//genero estado vacio.. en la fcn de ordenar, renderiza la primera pag
 
     const pageBreaker = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -41,7 +41,8 @@ export default function Home(){
         if(!allVideogames.length) { //si en el estado de videogames no hay nada, hace esto
         dispatch(getAllVG());
         }
-    },[dispatch]) // ese ultimo array, (Array de dependencias) se pone de lo que depende didmount del dispatch - si le paso en el array algo lo hace, si no no hace nada
+        // eslint-disable-next-line 
+    }, [dispatch]) // ese ultimo array, (Array de dependencias) se pone de lo que depende didmount del dispatch - si le paso en el array algo lo hace, si no no hace nada
     // cuando componente se actializa, esto se ejecuta
     // en array paso una variable, si esa variable cambia, se ejecuta useEffect ej: [var]
     //+ tengo que poner en el array, variables que sean externas a react - de estamanera, react controla la operatoria

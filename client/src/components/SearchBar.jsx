@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getVgByName, cleanVG } from '../redux/actions';
+import { getVgByName } from '../redux/actions';
 import styles from './SearchBar.module.css';
 
 

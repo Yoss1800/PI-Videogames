@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGenres, postVG, getAllVG } from '../redux/actions';
-import { useHistory, useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Nav from './Nav'
 import styles from './VideogameCreate.module.css';
 
